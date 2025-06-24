@@ -43,3 +43,66 @@ window.onscroll = function() {
   document.getElementById("up").onclick = function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+document.addEventListener('DOMContentLoaded', function() {
+    // Menu hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Fermer le menu quand un lien est cliqué
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Bouton retour en haut
+    const upButton = document.getElementById('up');
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            upButton.style.display = 'block';
+        } else {
+            upButton.style.display = 'none';
+        }
+    });
+    
+    upButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Animation des barres de compétences
+    const skillBars = document.querySelectorAll('.skill-bar-fill');
+    
+    function animateSkillBars() {
+        skillBars.forEach(bar => {
+            const level = bar.getAttribute('data-skill-level');
+            bar.style.width = '0';
+            setTimeout(() => {
+                bar.style.width = level + '%';
+            }, 100);
+        });
+    }
+    
+    // Détection quand les compétences sont visibles
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateSkillBars();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.competence-section').forEach(section => {
+        observer.observe(section);
+    });
+});
