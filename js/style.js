@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Animation de typing améliorée
+    // Animation de typing
     const typingText = document.getElementById('typing-text');
     const phrases = [
         "Lowe Darel",
@@ -175,18 +175,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentPhrase = phrases[phraseIndex];
         
         if (isDeleting) {
-            // Effacer le texte
             typingText.textContent = currentPhrase.substring(0, charIndex - 1);
             charIndex--;
             typingSpeed = 50;
         } else {
-            // Écrire le texte
             typingText.textContent = currentPhrase.substring(0, charIndex + 1);
             charIndex++;
-            typingSpeed = charIndex % 3 === 0 ? 150 : 100; // Variation de vitesse pour un effet plus naturel
+            typingSpeed = charIndex % 3 === 0 ? 150 : 100;
         }
         
-        // Transition entre les phrases
         if (!isDeleting && charIndex === currentPhrase.length) {
             typingSpeed = 2000; // Pause à la fin de la phrase
             isDeleting = true;
