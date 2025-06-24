@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
 
         // Typing Animation with your specific phrases
     const typed = new Typed('.typing', {
@@ -132,4 +132,95 @@ document.addEventListener('DOMContentLoaded', function() {
     if (statsSection) {
         statsObserver.observe(statsSection);
     }
+});*/
+document.addEventListener('DOMContentLoaded', function() {
+    // Menu Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Fermer le menu quand on clique sur un lien
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Animation de typing
+    const phrases = [
+        "Lowe Darel",
+        "Développeur Fullstack Junior",
+        "Passionné par l'informatique",
+        "Disponible pour réaliser vos projets"
+    ];
+    const typingText = document.getElementById('typing-text');
+    const cursor = document.querySelector('.cursor');
+    
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isEnd = false;
+    
+    function type() {
+        const currentPhrase = phrases[phraseIndex];
+        
+        if (isDeleting) {
+            // Effacer
+            typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            // Écrire
+            typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        // Vitesse de frappe/effacement
+        let typeSpeed = 100;
+        
+        if (isDeleting) {
+            typeSpeed /= 2;
+        }
+        
+        // Si le mot est complètement écrit
+        if (!isDeleting && charIndex === currentPhrase.length) {
+            isEnd = true;
+            typeSpeed = 1500; // Pause à la fin
+            cursor.style.animation = 'none'; // Stopper le clignotement
+            setTimeout(() => {
+                cursor.style.animation = 'blink 0.7s infinite';
+                isDeleting = true;
+            }, typeSpeed);
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+        
+        setTimeout(type, typeSpeed);
+    }
+    
+    // Démarrer l'animation
+    setTimeout(type, 1000);
+    
+    // Smooth scrolling pour tous les liens
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 });
