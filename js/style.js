@@ -139,27 +139,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.getElementById('navLinks');
     
     hamburger.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
         
         // Empêcher le défilement quand le menu est ouvert
-        if (navLinks.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
     });
     
     // Fermer le menu quand on clique sur un lien
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', function() {
+            hamburger.setAttribute('aria-expanded', 'false');
             hamburger.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
     });
     
-    // Animation de typing
+    // Animation de typing améliorée
     const typingText = document.getElementById('typing-text');
     const phrases = [
         "Lowe Darel",
@@ -170,11 +169,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingSpeed = 100;
-    let pauseBetweenPhrases = 1500;
+    let typingSpeed = 150;
     
     function type() {
-        const currentPhrase = phrases[phraseIndex % phrases.length];
+        const currentPhrase = phrases[phraseIndex];
         
         if (isDeleting) {
             // Effacer le texte
@@ -185,32 +183,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Écrire le texte
             typingText.textContent = currentPhrase.substring(0, charIndex + 1);
             charIndex++;
-            typingSpeed = 100;
+            typingSpeed = charIndex % 3 === 0 ? 150 : 100; // Variation de vitesse pour un effet plus naturel
         }
         
-        // Vérifier si on a fini d'écrire la phrase
+        // Transition entre les phrases
         if (!isDeleting && charIndex === currentPhrase.length) {
-            // Pause avant de commencer à effacer
-            typingSpeed = pauseBetweenPhrases;
+            typingSpeed = 2000; // Pause à la fin de la phrase
             isDeleting = true;
         } else if (isDeleting && charIndex === 0) {
-            // Passer à la phrase suivante
             isDeleting = false;
-            phraseIndex++;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
             typingSpeed = 500; // Pause avant de commencer la nouvelle phrase
         }
         
         setTimeout(type, typingSpeed);
     }
     
-    // Démarrer l'animation après un court délai
-    setTimeout(type, 1000);
+    // Démarrer l'animation
+    type();
     
     // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
             
