@@ -1,50 +1,5 @@
-let currentSlide = 0;
-
-function moveSlide(step) {
-    const slides = document.querySelectorAll('.slide');
-    currentSlide = (currentSlide + step + slides.length) % slides.length;
-    document.querySelector('.slides').style.transform = `translateX(-${currentSlide * 100}%)`;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    setInterval(() => moveSlide(1), 5000); // Auto-slide every 5 seconds
-
-    // Hamburger menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-});
-document.addEventListener("DOMContentLoaded", function() {
-    const skillBars = document.querySelectorAll('.skill-bar-fill');
-
-    skillBars.forEach(skillBar => {
-        const skillLevel = skillBar.getAttribute('data-skill-level');
-        skillBar.style.width = skillLevel + '%';
-    });
-});
-//bloquer le clic droit de la souris
-document.addEventListener('contextmenu',function (event) {
-    event.preventDefault();
-});
-// Affiche le bouton lorsqu'on défile vers le bas de 100px
-window.onscroll = function() {
-    let button = document.getElementById("up");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      button.style.display = "block";
-    } else {
-      button.style.display = "none";
-    }
-  };
-  
-  // Défilement fluide vers le haut lorsque le bouton est cliqué
-  document.getElementById("up").onclick = function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 document.addEventListener('DOMContentLoaded', function() {
-    // Menu hamburger
+    // Mobile Menu Toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.querySelector('.nav-links');
     
@@ -53,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks.classList.toggle('active');
     });
 
-    // Fermer le menu quand un lien est cliqué
+    // Close menu when clicking on a link
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
@@ -61,48 +16,108 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Bouton retour en haut
-    const upButton = document.getElementById('up');
+    // Back to Top Button
+    const backToTopBtn = document.querySelector('.back-to-top');
     
     window.addEventListener('scroll', function() {
         if (window.pageYOffset > 300) {
-            upButton.style.display = 'block';
+            backToTopBtn.classList.add('active');
         } else {
-            upButton.style.display = 'none';
+            backToTopBtn.classList.remove('active');
         }
     });
-    
-    upButton.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+
+    // Smooth scrolling for all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
-    // Animation des barres de compétences
-    const skillBars = document.querySelectorAll('.skill-bar-fill');
+    // Typing Animation
+    const typed = new Typed('.typing', {
+        strings: ['Steve Darel', 'Développeur Web', 'Designer', 'Freelance'],
+        typeSpeed: 100,
+        backSpeed: 60,
+        loop: true
+    });
+
+    // Animate Skills Bars on Scroll
+    const skillBars = document.querySelectorAll('.skill-progress');
     
     function animateSkillBars() {
         skillBars.forEach(bar => {
-            const level = bar.getAttribute('data-skill-level');
-            bar.style.width = '0';
-            setTimeout(() => {
-                bar.style.width = level + '%';
-            }, 100);
+            const width = bar.getAttribute('data-width');
+            bar.style.width = width + '%';
         });
     }
     
-    // Détection quand les compétences sont visibles
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1
+    };
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                animateSkillBars();
-                observer.unobserve(entry.target);
+                if (entry.target.classList.contains('skill-progress')) {
+                    animateSkillBars();
+                }
+                entry.target.classList.add('animated');
             }
         });
-    }, { threshold: 0.5 });
+    }, observerOptions);
     
-    document.querySelectorAll('.competence-section').forEach(section => {
+    // Observe elements that should animate
+    document.querySelectorAll('.skill-progress, .about-section, .skills-section, .projects-section, .contact-section').forEach(section => {
         observer.observe(section);
     });
+
+    // Counter Animation for Stats
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    function animateCounters() {
+        statNumbers.forEach(number => {
+            const target = parseInt(number.getAttribute('data-count'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const counter = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    clearInterval(counter);
+                    number.textContent = target;
+                } else {
+                    number.textContent = Math.floor(current);
+                }
+            }, 16);
+        });
+    }
+    
+    // Only animate counters when stats section is visible
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    });
+    
+    const statsSection = document.querySelector('.about-stats');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
 });
