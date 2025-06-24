@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+        // Typing Animation with your specific phrases
+    const typed = new Typed('.typing', {
+        strings: ['Lowe Darel', 'Développeur Fullstack Junior', 'Passionné par l\'informatique', 'Disponible pour réaliser vos projets'],
+        typeSpeed: 70,
+        backSpeed: 40,
+        backDelay: 1500,
+        startDelay: 500,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|'
+    });
     // Mobile Menu Toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.querySelector('.nav-links');
