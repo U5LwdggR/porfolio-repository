@@ -141,72 +141,72 @@ document.addEventListener('DOMContentLoaded', function() {
     hamburger.addEventListener('click', function() {
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
+        
+        // Empêcher le défilement quand le menu est ouvert
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
     });
-
+    
     // Fermer le menu quand on clique sur un lien
     document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', function() {
             hamburger.classList.remove('active');
             navLinks.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
     });
-
+    
     // Animation de typing
+    const typingText = document.getElementById('typing-text');
     const phrases = [
         "Lowe Darel",
         "Développeur Fullstack Junior",
         "Passionné par l'informatique",
         "Disponible pour réaliser vos projets"
     ];
-    const typingText = document.getElementById('typing-text');
-    const cursor = document.querySelector('.cursor');
-    
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let isEnd = false;
+    let typingSpeed = 100;
+    let pauseBetweenPhrases = 1500;
     
     function type() {
-        const currentPhrase = phrases[phraseIndex];
+        const currentPhrase = phrases[phraseIndex % phrases.length];
         
         if (isDeleting) {
-            // Effacer
+            // Effacer le texte
             typingText.textContent = currentPhrase.substring(0, charIndex - 1);
             charIndex--;
+            typingSpeed = 50;
         } else {
-            // Écrire
+            // Écrire le texte
             typingText.textContent = currentPhrase.substring(0, charIndex + 1);
             charIndex++;
+            typingSpeed = 100;
         }
         
-        // Vitesse de frappe/effacement
-        let typeSpeed = 100;
-        
-        if (isDeleting) {
-            typeSpeed /= 2;
-        }
-        
-        // Si le mot est complètement écrit
+        // Vérifier si on a fini d'écrire la phrase
         if (!isDeleting && charIndex === currentPhrase.length) {
-            isEnd = true;
-            typeSpeed = 1500; // Pause à la fin
-            cursor.style.animation = 'none'; // Stopper le clignotement
-            setTimeout(() => {
-                cursor.style.animation = 'blink 0.7s infinite';
-                isDeleting = true;
-            }, typeSpeed);
+            // Pause avant de commencer à effacer
+            typingSpeed = pauseBetweenPhrases;
+            isDeleting = true;
         } else if (isDeleting && charIndex === 0) {
+            // Passer à la phrase suivante
             isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
+            phraseIndex++;
+            typingSpeed = 500; // Pause avant de commencer la nouvelle phrase
         }
         
-        setTimeout(type, typeSpeed);
+        setTimeout(type, typingSpeed);
     }
     
-    // Démarrer l'animation
+    // Démarrer l'animation après un court délai
     setTimeout(type, 1000);
     
-    // Smooth scrolling pour tous les liens
+    // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
