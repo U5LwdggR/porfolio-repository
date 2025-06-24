@@ -1,12 +1,12 @@
 :root {
     --primary-color: #8b63b1;
     --secondary-color: #6a4a8a;
-    --dark-color: #1a1a1a;
+    --dark-color: #000;
     --light-color: #f8f9fa;
     --gray-color: #6c757d;
 }
 
-/* Base Styles */
+/* Base Styles #1a1a1a */
 * {
     margin: 0;
     padding: 0;
