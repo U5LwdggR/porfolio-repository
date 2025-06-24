@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="logo"><img src="images/logo.png" alt="Logo"></div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#about">À propos</a></li>
                 <li><a href="#competences">Compétences</a></li>
@@ -20,9 +19,9 @@
                 <li><a href="#contact" class="nav-contact">Contact</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
     </nav>
@@ -31,7 +30,7 @@
     <section id="accueil" class="hero">
         <div class="hero-content">
             <div class="text">
-                <h1>Salut! Je suis <span class="typing"></span></h1>
+                <h1>Salut! Je suis <span id="typing-text"></span><span class="cursor">|</span></h1>
                 <p>Me faire confiance c'est transformer votre utopie en réalité numérique</p>
             </div>
             <div class="btn">
@@ -40,14 +39,13 @@
             </div>
         </div>
         <div class="hero-image-wrapper">
-            
+            <img src="images/darel.jpg" alt="Lowe Darel" class="hero-image">
             <div class="social-links">
                 <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-            <img src="images/darel.jpg" alt="Lowe Darel" class="hero-image">
         </div>
     </section>
 
