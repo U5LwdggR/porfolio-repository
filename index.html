@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steve Darel - Développeur Web</title>
-    <meta name="description" content="Portfolio de Steve Darel, développeur web freelance. Création de sites web sur mesure.">
+    <title>Steve Darel | Développeur Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-container">
-            <div class="logo"><img src="images/logo (2).png" alt="Logo Steve Darel"></div>
+            <div class="logo"><img src="images/logo.png" alt="Logo"></div>
             <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#about">À propos</a></li>
                 <li><a href="#competences">Compétences</a></li>
                 <li><a href="#realisations">Réalisations</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="nav-contact">Contact</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -27,103 +27,148 @@
         </div>
     </nav>
 
-    <main>
-        <!-- Section Accueil -->
-        <section id="accueil" class="carousel">
-            <div class="principal">
-                <div class="text">
-                    <h1>Salut! Je suis <span>Steve Darel</span>.</h1>
-                    <p>Me faire confiance c'est transformer votre utopie en réalité numérique</p>
-                </div>
-                <div class="btn">
-                    <a href="#contact" class="btn-primary">Me contacter</a>
-                    <a href="#" class="btn-secondary">Télécharger mon CV</a>
-                </div>
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <div class="text">
+                <h1>Salut! Je suis <span class="typing"></span></h1>
+                <p>Me faire confiance c'est transformer votre utopie en réalité numérique</p>
             </div>
-            <img src="images/darel.jpg" class="image" alt="Photo de Steve Darel">
-            <div class="reseau_sociaux">
-                <a href="#" aria-label="Facebook">facebook</a>
-                <a href="#" aria-label="YouTube">youtube</a>
-                <a href="#" aria-label="GitHub">github</a>
-                <a href="#" aria-label="Instagram">instagram</a>
+            <div class="btn">
+                <a href="#contact" class="btn-primary">Me contacter</a>
+                <a href="#" class="btn-secondary">Télécharger mon CV</a>
             </div>
-        </section>
+        </div>
+        <div class="hero-image">
+            <img src="images/darel.jpg" alt="Steve Darel">
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </section>
 
-        <!-- Section À propos -->
-        <section id="about" class="competence-section">
-            <div class="competence-left">
-                <img src="images/work.png" alt="Illustration travail">
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-image">
+            <img src="images/work.png" alt="À propos">
+        </div>
+        <div class="about-divider"></div>
+        <div class="about-content">
+            <h2>À propos de moi</h2>
+            <p>
+                Passionné par le développement web et les nouvelles technologies, je mets mes compétences 
+                au service de vos projets. Mon approche allie créativité, rigueur et expertise technique 
+                pour des solutions digitales performantes et esthétiques.
+            </p>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="25">0</span>
+                    <span class="stat-text">Projets complétés</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="15">0</span>
+                    <span class="stat-text">Clients satisfaits</span>
+                </div>
             </div>
-            <div class="competence-divider"></div>
-            <div class="competence-right">
-                <article class="skill">
-                    <h2>A propos de moi</h2>
-                    <p>
-                        Développeur web passionné avec une expertise en création de sites web modernes et responsives. 
-                        Je combine créativité et compétences techniques pour offrir des solutions digitales sur mesure.
-                    </p>
-                </article>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section Compétences -->
-        <section id="competences" class="skills">
-            <h2>Mes Compétences</h2>
-            
-            <section class="competence-section">
-                <div class="competence-left">
+    <!-- Skills Section -->
+    <section id="competences" class="skills-section">
+        <h2>Mes Compétences</h2>
+        
+        <div class="skills-container">
+            <!-- Web Development -->
+            <div class="skill-category">
+                <div class="category-title">
+                    <i class="fas fa-code"></i>
                     <h3>Développement Web</h3>
                 </div>
-                <div class="competence-divider"></div>
-                <div class="competence-right">
-                    <div class="skill">
-                        <div class="skill-label">
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <div class="skill-info">
                             <span>HTML</span>
-                            <span class="skill-percentage">90%</span>
+                            <span>90%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-bar-fill" data-skill-level="90"></div>
+                            <div class="skill-progress" data-width="90"></div>
                         </div>
                     </div>
-                    <!-- Autres compétences... -->
+                    <!-- Ajoutez d'autres compétences de la même manière -->
                 </div>
-            </section>
-            <!-- Autres sections compétences... -->
-        </section>
-
-        <!-- Section Réalisations -->
-        <section id="realisations" class="projects">
-            <h2>Mes Réalisations</h2>
-            <div class="cont_project">
-                <article class="project">
-                    <h3>Nombre de projet(s) réalisé(s)</h3>
-                    <span>2</span>
-                </article>
-                <article class="project">
-                    <h3>Nombre de projet(s) en cours de réalisation</h3>
-                    <span>1</span>
-                </article>
             </div>
-        </section>
+            
+            <!-- Design -->
+            <div class="skill-category">
+                <div class="category-title">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Design</h3>
+                </div>
+                <div class="skills-list">
+                    <!-- Compétences en design -->
+                </div>
+            </div>
+            
+            <!-- IT -->
+            <div class="skill-category">
+                <div class="category-title">
+                    <i class="fas fa-server"></i>
+                    <h3>IT</h3>
+                </div>
+                <div class="skills-list">
+                    <!-- Compétences IT -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Section Contact -->
-        <section id="contact" class="contact">
-            <h2>Me Contacter</h2>
-            <form method="post" action="php/config.php">
-                <input type="text" name="name" placeholder="Votre nom" required>
-                <input type="email" name="email" placeholder="Votre email" required>
-                <textarea name="message" placeholder="Votre message" required></textarea>
-                <button type="submit" name="send">Envoyer</button>
-            </form>
-        </section>
-    </main>
+    <!-- Projects Section -->
+    <section id="realisations" class="projects-section">
+        <h2>Mes Réalisations</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-number">2</div>
+                <h3>Projets réalisés</h3>
+                <p>Des solutions sur mesure pour mes clients</p>
+            </div>
+            <div class="project-card">
+                <div class="project-number">1</div>
+                <h3>Projets en cours</h3>
+                <p>Des innovations en développement</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Me Contacter</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Votre email" required>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Votre message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Envoyer <i class="fas fa-paper-plane"></i></button>
+        </form>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Steve Darel. Tous droits réservés</p>
     </footer>
 
-    <button id="up" aria-label="Retour en haut">&#x2191;</button>
+    <!-- Back to Top Button -->
+    <a href="#accueil" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
-    <script src="js/style.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
